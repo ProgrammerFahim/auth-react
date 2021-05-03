@@ -33,8 +33,6 @@ const usePassLogin = () => {
         event.preventDefault();
         setErrors(validateInfo(values));
         setIsSubmitting(true);
-        console.log(values);
-        console.log(errors);
     }
 
     useEffect(() => {
@@ -45,7 +43,6 @@ const usePassLogin = () => {
                     password: values.password
                 });
                 setToken(user);
-                console.log(token);
             }
         }
         fetchData();

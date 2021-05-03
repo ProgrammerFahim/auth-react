@@ -1,16 +1,24 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import usePhoneLogin from '../forms/usePhoneLogin';
 
 const PhoneLogin = (props) => {
-    const [ otpSent, setotpSent ] = useState(false);
+    const { phone, otp, token, otpSent, phoneChangeHandler, 
+        otpChangeHandler, submitHandler, otpSubmitHandler, phoneErrors, otpErrors } = usePhoneLogin();
+
+
+    if (token) {
+        return <h1>Logged In!</h1>
+    }
 
     if (otpSent) {
         return (
             <div className="phone-otp-sent">
-                <form>
+                <form onSubmit={otpSubmitHandler}>
                     <label>
                         <p>Enter OTP</p>
-                        <input type="text" />
+                        <input value={otp.otp} onChange={otpChangeHandler} type="text" />
+                        {otpErrors}
                     </label>
                     <div>
                         <button type="submit">Submit</button>
@@ -24,13 +32,14 @@ const PhoneLogin = (props) => {
     return (
         <div className="phone-login-form">
             <h2>Login</h2>
-            <form>
+            <form onSubmit={submitHandler}>
                 <label>
                     <p>Phone Number</p>
-                    <input type="text" />
+                    <input value={phone.phone} onChange={phoneChangeHandler} type="tel" />
+                    {phoneErrors}
                 </label>
                 <div>
-                    <button type="submit" onClick={() => setotpSent(true)}>Submit</button>
+                    <button type="submit">Submit</button>
                 </div>
             </form>
             <Link to="/login">Sign in with password</Link>

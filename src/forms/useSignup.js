@@ -35,8 +35,6 @@ const useSignup = () => {
         event.preventDefault();
         setErrors(validateInfo(values));
         setIsSubmitting(true);
-        console.log(values);
-        console.log(errors);
     }
 
     useEffect(() => {
@@ -49,7 +47,6 @@ const useSignup = () => {
                     password: values.password
                 });
                 setToken(user);
-                console.log(token);
             }
         }
         fetchData();

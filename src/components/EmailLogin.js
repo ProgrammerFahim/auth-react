@@ -1,16 +1,24 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import useEmailLogin from '../forms/useEmailLogin';
 
 const EmailLogin = (props) => {
-    const [ otpSent, setotpSent ] = useState(false);
+    const { email, otp, token, otpSent, emailChangeHandler, 
+        otpChangeHandler, submitHandler, otpSubmitHandler, emailErrors, otpErrors } = useEmailLogin();
+
+
+    if (token) {
+        return <h1>Logged In!</h1>
+    }
 
     if (otpSent) {
         return (
             <div className="phone-otp-sent">
-                <form>
+                <form onSubmit={otpSubmitHandler}>
                     <label>
                         <p>Enter OTP</p>
-                        <input type="text" />
+                        <input value={otp.otp} onChange={otpChangeHandler} type="text" />
+                        {otpErrors}
                     </label>
                     <div>
                         <button type="submit">Submit</button>
@@ -24,13 +32,14 @@ const EmailLogin = (props) => {
     return (
         <div className="email-login-form">
             <h2>Login</h2>
-            <form>
+            <form onSubmit={submitHandler}>
                 <label>
                     <p>Email</p>
-                    <input type="text" />
+                    <input value={email.email} onChange={emailChangeHandler} type="text" />
+                    {emailErrors}
                 </label>
                 <div>
-                    <button type="submit" onClick={() => setotpSent(true)}>Submit</button>
+                    <button type="submit">Submit</button>
                 </div>
             </form>
             <Link to="/login">Sign in with password</Link>

@@ -16,4 +16,10 @@ app.use('/signup', (req, res) => {
     });
 });
 
+app.use('/submit', (req, res) => {
+    res.send({
+        handled: 'true'
+    });
+});
+
 app.listen(8080, () => console.log('API is running on http://localhost:8080/'));
