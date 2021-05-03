@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom';
 import usePassLogin from '../forms/usePassLogin';
 
 const Login = (props) => {
-    const { handleChange, values, submitHandler, errors } = usePassLogin();
+    const { handleChange, values, submitHandler, errors, token } = usePassLogin();
+
+    if (token) {
+        return <h1>Done</h1>
+    }
+    
     return (
         <div className="login-form">
             <h2>Login</h2>

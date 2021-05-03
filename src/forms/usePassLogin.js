@@ -1,6 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+
+async function login(creds) {
+    return fetch('http://localhost:8080/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(creds)
+    })
+    .then(data => data.json())
+}
 
 const usePassLogin = () => {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [token, setToken] = useState(null);
     const [values, setValues] = useState({
         phone: '',
         password: ''
@@ -16,14 +29,29 @@ const usePassLogin = () => {
         });
     }
 
-    const submitHandler = (event) => {
+    const submitHandler = async (event) => {
         event.preventDefault();
         setErrors(validateInfo(values));
+        setIsSubmitting(true);
         console.log(values);
         console.log(errors);
     }
 
-    return { handleChange, values, submitHandler, errors };
+    useEffect(() => {
+        async function fetchData() {
+            if (Object.keys(errors).length === 0 && isSubmitting) {
+                const user = await login({
+                    phone: values.phone,
+                    password: values.password
+                });
+                setToken(user);
+                console.log(token);
+            }
+        }
+        fetchData();
+    }, [errors]);
+
+    return { handleChange, values, submitHandler, errors, token };
 };
 
 function validateInfo(values) {
