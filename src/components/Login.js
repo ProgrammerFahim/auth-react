@@ -1,18 +1,22 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import usePassLogin from '../forms/usePassLogin';
 
 const Login = (props) => {
+    const { handleChange, values, submitHandler, errors } = usePassLogin();
     return (
         <div className="login-form">
             <h2>Login</h2>
-            <form>
+            <form onSubmit={submitHandler}>
                 <label>
                     <p>Phone Number</p>
-                    <input type="text" />
+                    <input name="phone" value={values.phone} type="tel" onChange={handleChange}/>
+                    {errors && <p>{errors.phone}</p>}
                 </label>
                 <label>
                     <p>Password</p>
-                    <input type="password" />
+                    <input name="password" value={values.password} type="password" onChange={handleChange}/>
+                    {errors && <p>{errors.password}</p>}
                 </label>
                 <div>
                     <button type="submit">Submit</button>
