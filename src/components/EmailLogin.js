@@ -47,6 +47,7 @@ const EmailLogin = (props) => {
                 <p>{emailErrors}</p>
                 <button className="block-btn" type="submit">Submit</button>
             </form>
+            <Link className="block-btn" to="/phone-login">Send OTP to my phone</Link>
             <Link className="block-btn" to="/login">Sign in with password</Link>
             <p>Don't have an account? <Link className="inline-btn" to="/signup">Sign up</Link></p>
         </div>

@@ -17,9 +17,9 @@ const Login = (props) => {
     return (
         <div className="login-form form">
             {failedLogin? 
-            <p className="failed">Login Failed</p>
+            <p className="failed">Log In Failed</p>
             : null }
-            <h2>Login</h2>
+            <h2>Log In</h2>
             <form onSubmit={submitHandler}>
                 <label for="phone">Phone Number</label>
                 <input name="phone" value={values.phone} type="tel" onChange={handleChange} id="phone" placeholder="+880XXXXXXXXXX"/>

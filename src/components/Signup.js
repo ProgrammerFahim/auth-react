@@ -17,14 +17,14 @@ const Signup = (props) => {
     return (
         <div className="signup-form form">
             {failedSignup? 
-            <p className="failed">Signup Failed</p>
+            <p className="failed">Sign Up Failed</p>
             : null }
-            <h2>Signup</h2>
+            <h2>Sign Up</h2>
             <form onSubmit={submitHandler}>
-                <label for="phone">Phone Number</label>
+                <label for="phone">Phone Number <small>(Required)</small></label>
                 <input value={values.phone} name="phone" type="tel" onChange={handleChange} id="phone" placeholder="+880XXXXXXXXXX"/>
                 {errors && <p>{errors.phone}</p>}
-                <label for="name">Name</label>
+                <label for="name">Name <small>(Required)</small></label>
                 <input value={values.name} name="name" type="text" onChange={handleChange} id="name" placeholder="Jane Doe"/>
                 {errors && <p>{errors.name}</p>}
                 <label for="email">Email</label>
