@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import usePassLogin from '../forms/usePassLogin';
 
 const Login = (props) => {
-    const { handleChange, values, submitHandler, errors, token } = usePassLogin();
+    const { handleChange, values, submitHandler, errors } = usePassLogin(props);
 
-    if (token) {
+    if (props.token) {
         return (
             <div>
                 <h1 className="success-banner">You are logged in!</h1>

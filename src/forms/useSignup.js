@@ -11,9 +11,8 @@ async function signup(creds) {
     .then(data => data.json())
 }
 
-const useSignup = () => {
+const useSignup = (props) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [token, setToken] = useState(null);
     const [values, setValues] = useState({
         phone: '',
         name: '',
@@ -46,13 +45,13 @@ const useSignup = () => {
                     email: values.email,
                     password: values.password
                 });
-                setToken(user);
+                props.setToken(user);
             }
         }
         fetchData();
     }, [errors]);
 
-    return { handleChange, values, submitHandler, errors, token };
+    return { handleChange, values, submitHandler, errors };
 };
 
 function validateInfo(values) {

@@ -22,10 +22,9 @@ async function submitOtp(creds) {
     .then(data => data.json())
 }
 
-const usePhoneLogin = () => {
+const usePhoneLogin = (props) => {
     const [phone, setPhone] = useState({ phone: '' });
     const [otp, setOtp] = useState({ otp: '' });
-    const [token, setToken] = useState(null);
     const [otpSent, setOtpSent] = useState(false);
     const [phoneErrors, setPhoneErrors] = useState('');
     const [otpErrors, setOtpErrors] = useState('');
@@ -72,7 +71,7 @@ const usePhoneLogin = () => {
         async function checkOtp() {
             if (otpErrors.length === 0 && otpSubmitted) {
                 const user = await submitOtp({ otp });
-                setToken(user);
+                props.setToken(user);
             }
         }
         checkOtp();
@@ -88,7 +87,7 @@ const usePhoneLogin = () => {
         checkPhone();
     }, [phoneErrors, phoneSubmitted]);
 
-    return { phone, otp, token, otpSent, phoneChangeHandler, 
+    return { phone, otp, otpSent, phoneChangeHandler, 
                 otpChangeHandler, submitHandler, otpSubmitHandler, phoneErrors, otpErrors };
 };
 

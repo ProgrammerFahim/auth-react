@@ -22,10 +22,9 @@ async function submitOtp(creds) {
     .then(data => data.json())
 }
 
-const useEmailLogin = () => {
+const useEmailLogin = (props) => {
     const [email, setEmail] = useState({ email: '' });
     const [otp, setOtp] = useState({ otp: '' });
-    const [token, setToken] = useState(null);
     const [otpSent, setOtpSent] = useState(false);
     const [emailErrors, setEmailErrors] = useState('');
     const [otpErrors, setOtpErrors] = useState('');
@@ -72,7 +71,7 @@ const useEmailLogin = () => {
         async function checkOtp() {
             if (otpErrors.length === 0 && otpSubmitted) {
                 const user = await submitOtp({ otp });
-                setToken(user);
+                props.setToken(user);
             }
         }
         checkOtp();
@@ -88,7 +87,7 @@ const useEmailLogin = () => {
         checkEmail();
     }, [emailErrors, emailSubmitted]);
 
-    return { email, otp, token, otpSent, emailChangeHandler, 
+    return { email, otp, otpSent, emailChangeHandler, 
                 otpChangeHandler, submitHandler, otpSubmitHandler, emailErrors, otpErrors };
 };
 

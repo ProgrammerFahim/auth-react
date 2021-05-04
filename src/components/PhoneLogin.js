@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import usePhoneLogin from '../forms/usePhoneLogin';
 
 const PhoneLogin = (props) => {
-    const { phone, otp, token, otpSent, phoneChangeHandler, 
-        otpChangeHandler, submitHandler, otpSubmitHandler, phoneErrors, otpErrors } = usePhoneLogin();
+    const { phone, otp, otpSent, phoneChangeHandler, 
+        otpChangeHandler, submitHandler, otpSubmitHandler, phoneErrors, otpErrors } = usePhoneLogin(props);
 
 
-    if (token) {
+    if (props.token) {
         return (
             <div>
                 <h1 className="success-banner">You are logged in!</h1>

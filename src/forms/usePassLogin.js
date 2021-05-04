@@ -11,9 +11,8 @@ async function login(creds) {
     .then(data => data.json())
 }
 
-const usePassLogin = () => {
+const usePassLogin = (props) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
-    const [token, setToken] = useState(null);
     const [values, setValues] = useState({
         phone: '',
         password: ''
@@ -42,13 +41,13 @@ const usePassLogin = () => {
                     phone: values.phone,
                     password: values.password
                 });
-                setToken(user);
+                props.setToken(user);
             }
         }
         fetchData();
     }, [errors]);
 
-    return { handleChange, values, submitHandler, errors, token };
+    return { handleChange, values, submitHandler, errors };
 };
 
 function validateInfo(values) {

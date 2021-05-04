@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import useSignup from '../forms/useSignup';
 
 const Signup = (props) => {
-    const { handleChange, values, submitHandler, errors, token } = useSignup();
+    const { handleChange, values, submitHandler, errors } = useSignup(props);
 
-    if (token) {
+    if (props.token) {
         return (
             <div>
                 <h1 className="success-banner">You are registered!</h1>

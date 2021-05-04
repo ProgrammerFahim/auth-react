@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import useEmailLogin from '../forms/useEmailLogin';
 
 const EmailLogin = (props) => {
-    const { email, otp, token, otpSent, emailChangeHandler, 
-        otpChangeHandler, submitHandler, otpSubmitHandler, emailErrors, otpErrors } = useEmailLogin();
+    const { email, otp, otpSent, emailChangeHandler, 
+        otpChangeHandler, submitHandler, otpSubmitHandler, emailErrors, otpErrors } = useEmailLogin(props);
 
 
-    if (token) {
+    if (props.token) {
         return (
             <div>
                 <h1 className="success-banner">You are logged in!</h1>
