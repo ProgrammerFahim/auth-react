@@ -4,7 +4,8 @@ import useEmailLogin from '../forms/useEmailLogin';
 
 const EmailLogin = (props) => {
     const { email, otp, otpSent, emailChangeHandler, 
-        otpChangeHandler, submitHandler, otpSubmitHandler, emailErrors, otpErrors } = useEmailLogin(props);
+        otpChangeHandler, submitHandler, otpSubmitHandler, 
+        emailErrors, otpErrors, failedEmail, failedOtp } = useEmailLogin(props);
 
 
     if (props.token) {
@@ -19,6 +20,10 @@ const EmailLogin = (props) => {
     if (otpSent) {
         return (
             <div className="otp-sent form">
+                {failedOtp? 
+                <p className="failed">OTP Authentication Error</p>
+                : null }
+                <h2>OTP sent to your email</h2>
                 <form onSubmit={otpSubmitHandler}>
                     <label for="otp">Enter OTP</label>
                     <input value={otp.otp} name="otp" onChange={otpChangeHandler} type="text" id="otp" placeholder="(6-digit OTP)"/>
@@ -32,6 +37,9 @@ const EmailLogin = (props) => {
 
     return (
         <div className="otp-login-form form">
+            {failedEmail? 
+            <p className="failed">Email Authentication Error</p>
+            : null }
             <h2>Login</h2>
             <form onSubmit={submitHandler}>
                 <label for="email">Email</label>

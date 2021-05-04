@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 async function submitEmail(creds) {
-    return fetch('http://localhost:8080/submit/email', {
+    return fetch('http://localhost:8080/submit-email', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -12,7 +12,7 @@ async function submitEmail(creds) {
 }
 
 async function submitOtp(creds) {
-    return fetch('http://localhost:8080/submit/otp', {
+    return fetch('http://localhost:8080/submit-otp', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -23,6 +23,8 @@ async function submitOtp(creds) {
 }
 
 const useEmailLogin = (props) => {
+    const [failedEmail, setFailedEmail] = useState(false);
+    const [failedOtp, setFailedOtp] = useState(false);
     const [email, setEmail] = useState({ email: '' });
     const [otp, setOtp] = useState({ otp: '' });
     const [otpSent, setOtpSent] = useState(false);
@@ -41,6 +43,7 @@ const useEmailLogin = (props) => {
 
     const submitHandler = (event) => {
         event.preventDefault();
+        setFailedEmail(false);
 
         if (!email.email) {
             setEmailErrors("Email required");
@@ -55,6 +58,7 @@ const useEmailLogin = (props) => {
 
     const otpSubmitHandler = (event) => {
         event.preventDefault();
+        setFailedOtp(false);
 
         if (!otp.otp) {
             setOtpErrors("OTP required");
@@ -71,7 +75,12 @@ const useEmailLogin = (props) => {
         async function checkOtp() {
             if (otpErrors.length === 0 && otpSubmitted) {
                 const user = await submitOtp({ otp });
-                props.setToken(user);
+                if (Object.keys(user).includes('token')) {
+                    props.setToken(user);
+                } else {
+                    setFailedOtp(true);
+                }
+                
             }
         }
         checkOtp();
@@ -80,15 +89,21 @@ const useEmailLogin = (props) => {
     useEffect(() => {
         async function checkEmail() {
             if (emailErrors.length === 0 && emailSubmitted) {
-                await submitEmail({ email });
-                setOtpSent(true);
+                const validEmail = await submitEmail({ email });
+                if (Object.keys(validEmail).includes('email')) {
+                    setOtpSent(true);
+                } else {
+                    setFailedEmail(true);
+                }
+                
             }
         }
         checkEmail();
     }, [emailErrors, emailSubmitted]);
 
     return { email, otp, otpSent, emailChangeHandler, 
-                otpChangeHandler, submitHandler, otpSubmitHandler, emailErrors, otpErrors };
+                otpChangeHandler, submitHandler, otpSubmitHandler, 
+                emailErrors, otpErrors, failedEmail, failedOtp };
 };
 
 export default useEmailLogin;

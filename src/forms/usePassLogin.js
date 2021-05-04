@@ -12,6 +12,7 @@ async function login(creds) {
 }
 
 const usePassLogin = (props) => {
+    const [failedLogin, setFailedLogin] = useState(false);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [values, setValues] = useState({
         phone: '',
@@ -29,6 +30,7 @@ const usePassLogin = (props) => {
     }
 
     const submitHandler = async (event) => {
+        setFailedLogin(false);
         event.preventDefault();
         setErrors(validateInfo(values));
         setIsSubmitting(true);
@@ -41,13 +43,18 @@ const usePassLogin = (props) => {
                     phone: values.phone,
                     password: values.password
                 });
-                props.setToken(user);
+                if(Object.keys(user).includes('token')) {
+                    props.setToken(user);
+                } else {
+                    setFailedLogin(true);
+                }
+                
             }
         }
         fetchData();
     }, [errors]);
 
-    return { handleChange, values, submitHandler, errors };
+    return { handleChange, values, submitHandler, errors, failedLogin };
 };
 
 function validateInfo(values) {

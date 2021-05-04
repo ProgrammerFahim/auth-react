@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import usePassLogin from '../forms/usePassLogin';
 
 const Login = (props) => {
-    const { handleChange, values, submitHandler, errors } = usePassLogin(props);
+    const { handleChange, values, submitHandler, errors, failedLogin } = usePassLogin(props);
 
     if (props.token) {
         return (
@@ -16,6 +16,9 @@ const Login = (props) => {
 
     return (
         <div className="login-form form">
+            {failedLogin? 
+            <p className="failed">Login Failed</p>
+            : null }
             <h2>Login</h2>
             <form onSubmit={submitHandler}>
                 <label for="phone">Phone Number</label>

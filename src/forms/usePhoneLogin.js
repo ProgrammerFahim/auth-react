@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 
 async function submitPhone(creds) {
-    return fetch('http://localhost:8080/submit/phone', {
+    return fetch('http://localhost:8080/submit-phone', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -12,7 +12,7 @@ async function submitPhone(creds) {
 }
 
 async function submitOtp(creds) {
-    return fetch('http://localhost:8080/submit/otp', {
+    return fetch('http://localhost:8080/submit-otp', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -23,6 +23,8 @@ async function submitOtp(creds) {
 }
 
 const usePhoneLogin = (props) => {
+    const [failedPhone, setFailedPhone] = useState(false);
+    const [failedOtp, setFailedOtp] = useState(false);
     const [phone, setPhone] = useState({ phone: '' });
     const [otp, setOtp] = useState({ otp: '' });
     const [otpSent, setOtpSent] = useState(false);
@@ -41,6 +43,7 @@ const usePhoneLogin = (props) => {
 
     const submitHandler = (event) => {
         event.preventDefault();
+        setFailedPhone(false);
 
         if (!phone.phone) {
             setPhoneErrors("Phone Number required");
@@ -55,6 +58,7 @@ const usePhoneLogin = (props) => {
 
     const otpSubmitHandler = (event) => {
         event.preventDefault();
+        setFailedOtp(false);
 
         if (!otp.otp) {
             setOtpErrors("OTP required");
@@ -71,7 +75,12 @@ const usePhoneLogin = (props) => {
         async function checkOtp() {
             if (otpErrors.length === 0 && otpSubmitted) {
                 const user = await submitOtp({ otp });
-                props.setToken(user);
+                if (Object.keys(user).includes('token')) {
+                    props.setToken(user);
+                } else {
+                    setFailedOtp(true);
+                }
+                
             }
         }
         checkOtp();
@@ -80,15 +89,21 @@ const usePhoneLogin = (props) => {
     useEffect(() => {
         async function checkPhone() {
             if (phoneErrors.length === 0 && phoneSubmitted) {
-                await submitPhone({ phone });
-                setOtpSent(true);
+                const validPhone = await submitPhone({ phone });
+                if (Object.keys(validPhone).includes('phone')) {
+                    setOtpSent(true);
+                } else {
+                    setFailedPhone(true);
+                }
+                
             }
         }
         checkPhone();
     }, [phoneErrors, phoneSubmitted]);
 
     return { phone, otp, otpSent, phoneChangeHandler, 
-                otpChangeHandler, submitHandler, otpSubmitHandler, phoneErrors, otpErrors };
+                otpChangeHandler, submitHandler, otpSubmitHandler, 
+                phoneErrors, otpErrors,  failedPhone, failedOtp};
 };
 
 export default usePhoneLogin;

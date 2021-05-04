@@ -4,7 +4,8 @@ import usePhoneLogin from '../forms/usePhoneLogin';
 
 const PhoneLogin = (props) => {
     const { phone, otp, otpSent, phoneChangeHandler, 
-        otpChangeHandler, submitHandler, otpSubmitHandler, phoneErrors, otpErrors } = usePhoneLogin(props);
+        otpChangeHandler, submitHandler, otpSubmitHandler, 
+        phoneErrors, otpErrors, failedPhone, failedOtp} = usePhoneLogin(props);
 
 
     if (props.token) {
@@ -19,6 +20,10 @@ const PhoneLogin = (props) => {
     if (otpSent) {
         return (
             <div className="otp-sent form">
+                {failedOtp? 
+                <p className="failed">OTP Authentication Error</p>
+                : null }
+                <h2>OTP sent to your phone</h2>
                 <form onSubmit={otpSubmitHandler}>
                     <label for="otp">Enter OTP</label>
                     <input value={otp.otp} name="otp" onChange={otpChangeHandler} type="text" id="otp" placeholder="(6-digit OTP)"/>
@@ -32,6 +37,9 @@ const PhoneLogin = (props) => {
 
     return (
         <div className="otp-login-form form">
+            {failedPhone? 
+            <p className="failed">Number Authentication Error</p>
+            : null }
             <h2>Login</h2>
             <form onSubmit={submitHandler}>
                 <label for="phone">Phone Number</label>

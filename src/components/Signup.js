@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import useSignup from '../forms/useSignup';
 
 const Signup = (props) => {
-    const { handleChange, values, submitHandler, errors } = useSignup(props);
+    const { handleChange, values, submitHandler, errors, failedSignup } = useSignup(props);
 
     if (props.token) {
         return (
@@ -16,7 +16,10 @@ const Signup = (props) => {
 
     return (
         <div className="signup-form form">
-            <h2>Login</h2>
+            {failedSignup? 
+            <p className="failed">Signup Failed</p>
+            : null }
+            <h2>Signup</h2>
             <form onSubmit={submitHandler}>
                 <label for="phone">Phone Number</label>
                 <input value={values.phone} name="phone" type="tel" onChange={handleChange} id="phone" placeholder="+880XXXXXXXXXX"/>
