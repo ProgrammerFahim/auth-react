@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import './App.css';
 import { BrowserRouter, Route, Switch, Link } from 'react-router-dom';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import PhoneLogin from './components/PhoneLogin';
 import EmailLogin from './components/EmailLogin';
+import useToken from './useToken';
 
 function App() {
-  const [token, setToken] = useState(null);
+  const { token, setToken } = useToken();
   return (
     <div className="App">
       <h1 className="title-banner">Company Title</h1>
