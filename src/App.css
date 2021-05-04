@@ -1,3 +1,155 @@
-h1 h2 {
-  padding: 20px;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.form {
+  width: 40%;
+  margin: 2em auto;
+  border-radius: 8px;
+  padding: 2em;
+  box-shadow: 5px 10px 8px #888888;
+  background-color: #598392;
+  font-family: serif;
+  /* color: white; */
+  transition: transform 500ms ease;
+}
+
+.form:hover,
+.form:focus {
+  transform: scale(1.03);
+}
+
+.form label {
+  display: block;
+  margin-bottom: .5em;
+}
+
+.form .block-btn {
+  width: 100%;
+  display: block;
+  text-decoration: none;
+  border: 2px solid black;
+  border-radius: 5px;
+  color: white;
+  background-color: #01161E;
+  padding: .6em;
+  text-align: center;
+  font-size: .9rem;
+  font-family: sans-serif;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.form .block-btn:hover {
+  background-color: #124559;
+}
+
+.form .inline-btn {
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+  color: #01161E;
+}
+
+.form input {
+  width: 100%;
+  background-color: #124559;
+  border: none;
+  border-radius: 5px;
+  padding: .8em .5em;
+  color: white;
+  outline: none;
+}
+
+.form input:focus {
+  border: 1px solid #01161E;
+}
+
+.form form {
+  margin: 2em 0;
+}
+
+.form form p {
+  margin-top: 0;
+  padding: .5em;
+  margin-bottom: .5em;
+  font-size: .9rem;
+  color: red;
+}
+
+@media (min-width: 800px) {
+  .form {
+    width: 450px;
+  }
+}
+
+@media (max-width: 800px) {
+  .form {
+    width: 50%;
+  }
+}
+
+@media (max-width: 600px) {
+  .form {
+    width: 70%;
+  }
+}
+
+@media (max-width: 400px) {
+  .form {
+    width: 90%;
+  }
+}
+
+.success-banner {
+  width: 75%;
+  margin: 2em auto;
+  text-align: center;
+  padding-top: 3em;
+  padding-bottom: 3em;
+  border: 2px solid green;
+  border-radius: 10px;
+  background-color: rgba(0,255,0,.5);
+  color: green;
+}
+
+.normal-btn {
+  text-decoration: none;
+  cursor: pointer;
+  padding: 1em 2em;
+  border: 1px solid black;
+  color: black;
+  background: white;
+  display: block;
+  width: max-content;
+  margin: 2em auto;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.normal-btn:hover {
+  background: #eee;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: #aaa;;
+  opacity: 1; /* Firefox */
+  letter-spacing: .15ch;
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: #aaa;;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: #aaa;
+}
+
+.title-banner {
+  color: #01161E;
+  text-align: center;
+  padding: .5em;
+  margin: 0;
 }

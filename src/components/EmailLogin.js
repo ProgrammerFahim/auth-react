@@ -8,42 +8,39 @@ const EmailLogin = (props) => {
 
 
     if (token) {
-        return <h1>Logged In!</h1>
+        return (
+            <div>
+                <h1 className="success-banner">You are logged in!</h1>
+                <Link className="normal-btn" to="/">Home</Link>
+            </div>
+        );
     }
 
     if (otpSent) {
         return (
-            <div className="phone-otp-sent">
+            <div className="otp-sent form">
                 <form onSubmit={otpSubmitHandler}>
-                    <label>
-                        <p>Enter OTP</p>
-                        <input value={otp.otp} onChange={otpChangeHandler} type="text" />
-                        {otpErrors}
-                    </label>
-                    <div>
-                        <button type="submit">Submit</button>
-                    </div>
+                    <label for="otp">Enter OTP</label>
+                    <input value={otp.otp} name="otp" onChange={otpChangeHandler} type="text" id="otp" placeholder="(6-digit OTP)"/>
+                    <p>{otpErrors}</p>
+                    <button className="block-btn" type="submit">Submit</button>
                 </form>
-                <Link to="/phone-login">Send OTP to my phone</Link>
+                <Link className="block-btn" to="/phone-login">Send OTP to my phone</Link>
             </div>
         );
     }
 
     return (
-        <div className="email-login-form">
+        <div className="otp-login-form form">
             <h2>Login</h2>
             <form onSubmit={submitHandler}>
-                <label>
-                    <p>Email</p>
-                    <input value={email.email} onChange={emailChangeHandler} type="text" />
-                    {emailErrors}
-                </label>
-                <div>
-                    <button type="submit">Submit</button>
-                </div>
+                <label for="email">Email</label>
+                <input value={email.email} onChange={emailChangeHandler} type="text" id="email" placeholder="you@domain.com"/>
+                <p>{emailErrors}</p>
+                <button className="block-btn" type="submit">Submit</button>
             </form>
-            <Link to="/login">Sign in with password</Link>
-            <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+            <Link className="block-btn" to="/login">Sign in with password</Link>
+            <p>Don't have an account? <Link className="inline-btn" to="/signup">Sign up</Link></p>
         </div>
     );
 };

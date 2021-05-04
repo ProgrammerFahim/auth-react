@@ -8,10 +8,10 @@ import EmailLogin from './components/EmailLogin';
 function App() {
   return (
     <div className="App">
-      <h1>Hello, World!</h1>
+      <h1 className="title-banner">Company Title</h1>
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact><Link to="/login">Log In</Link></Route>
+          <Route path="/" exact><Link className="normal-btn" to="/login">Log In</Link></Route>
         </Switch>
         <Switch>
           <Route path="/login"><Login /></Route>

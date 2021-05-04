@@ -6,38 +6,33 @@ const Signup = (props) => {
     const { handleChange, values, submitHandler, errors, token } = useSignup();
 
     if (token) {
-        return <h1>Done</h1>
+        return (
+            <div>
+                <h1 className="success-banner">You are registered!</h1>
+                <Link className="normal-btn" to="/">Home</Link>
+            </div>
+        );
     }
 
     return (
-        <div className="signup-form">
+        <div className="signup-form form">
             <h2>Login</h2>
             <form onSubmit={submitHandler}>
-                <label>
-                    <p>Phone Number</p>
-                    <input value={values.phone} name="phone" type="tel" onChange={handleChange}/>
-                    {errors && <p>{errors.phone}</p>}
-                </label>
-                <label>
-                    <p>Name</p>
-                    <input value={values.name} name="name" type="text" onChange={handleChange}/>
-                    {errors && <p>{errors.name}</p>}
-                </label>
-                <label>
-                    <p>Email</p>
-                    <input value={values.email} name="email" type="email" onChange={handleChange}/>
-                    {errors && <p>{errors.email}</p>}
-                </label>
-                <label>
-                    <p>Password</p>
-                    <input value={values.password} name="password" type="password" onChange={handleChange}/>
-                    {errors && <p>{errors.password}</p>}
-                </label>
-                <div>
-                    <button type="submit">Submit</button>
-                </div>
+                <label for="phone">Phone Number</label>
+                <input value={values.phone} name="phone" type="tel" onChange={handleChange} id="phone" placeholder="+880XXXXXXXXXX"/>
+                {errors && <p>{errors.phone}</p>}
+                <label for="name">Name</label>
+                <input value={values.name} name="name" type="text" onChange={handleChange} id="name" placeholder="Jane Doe"/>
+                {errors && <p>{errors.name}</p>}
+                <label for="email">Email</label>
+                <input value={values.email} name="email" type="email" onChange={handleChange} id="email" placeholder="you@domain.com"/>
+                {errors && <p>{errors.email}</p>}
+                <label for="password">Password</label>
+                <input value={values.password} name="password" type="password" onChange={handleChange} id="password" placeholder="(at least 6-letters long)"/>
+                {errors && <p>{errors.password}</p>}
+                <button className="block-btn" type="submit">Submit</button>
             </form>
-            <Link to="/login">Go back to sign in</Link>
+            <Link className="inline-btn" to="/login">Go back to sign in</Link>
         </div>
     );
 };
