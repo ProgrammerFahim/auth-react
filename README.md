@@ -11,15 +11,30 @@ Go to the directory in which you want to test this, and then:
 
 Type `git clone` and paste the link of the repository:
 
-```git clone https://github.com/ProgrammerFahim/auth-xenworks.git```
+```
+$ git clone https://github.com/ProgrammerFahim/auth-xenworks.git
+```
 
 and then `cd` into the repository.
+
+### Install dependencies
+
+Now install the dependencies specified in the `package.json` file by executing
+
+```
+$ npm install
+```
+
+Depending on your operating system, you might need administrative or super-user
+privileges to run this.
 
 ### Fire up the Express mock API server
 
 Run 
 
-```node server.js```
+```
+$ node server.js
+```
 
 in a terminal window to get the server running. The file `server.js` contains the skeleton of
 a mock API. You will notice some of routes send information that make the authentication
